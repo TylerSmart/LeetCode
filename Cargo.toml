@@ -1,0 +1,7 @@
+[workspace]
+members = ["problems/*/Rust"]
+resolver = "2"
+
+[profile.dev]
+debug = 2
+opt-level = 0

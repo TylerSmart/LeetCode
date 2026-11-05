@@ -1,0 +1,16 @@
+{
+  "name": "leetcode-practice",
+  "private": true,
+  "scripts": {
+    "start": "node scripts/start.mjs",
+    "build": "tsc --project",
+    "typecheck": "tsc --noEmit --project"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.8.1"
+  }
+}

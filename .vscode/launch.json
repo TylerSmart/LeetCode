@@ -1,0 +1,79 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "LeetCode: Debug active Rust problem",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/.build/debug/Rust/debug/practice.exe",
+      "cwd": "${fileDirname}",
+      "preLaunchTask": "LeetCode: Build active Rust for debugging",
+      "sourceLanguages": ["rust"],
+      "terminal": "integrated"
+    },
+    {
+      "name": "LeetCode: Debug active C problem",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/.build/debug/C/practice.exe",
+      "cwd": "${fileDirname}",
+      "preLaunchTask": "LeetCode: Build active C for debugging",
+      "externalConsole": false
+    },
+    {
+      "name": "LeetCode: Debug active C++ problem",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/.build/debug/C++/practice.exe",
+      "cwd": "${fileDirname}",
+      "preLaunchTask": "LeetCode: Build active C++ for debugging",
+      "externalConsole": false
+    },
+    {
+      "name": "LeetCode: Debug active Java problem",
+      "type": "java",
+      "request": "launch",
+      "mainClass": "Main",
+      "classPaths": ["${workspaceFolder}/.build/debug/Java"],
+      "sourcePaths": ["${fileDirname}"],
+      "javaExec": "${workspaceFolder}/.tools/jdk/bin/java.exe",
+      "cwd": "${fileDirname}",
+      "preLaunchTask": "LeetCode: Build active Java for debugging",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "LeetCode: Debug active TypeScript problem",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/.build/debug/TypeScript/main.js",
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "LeetCode: Build active TypeScript for debugging",
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/.build/debug/TypeScript/**/*.js"],
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "LeetCode: Debug active C# problem",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/.build/debug/CSharp/Practice.dll",
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "LeetCode: Build active C# for debugging",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "LeetCode: Debug active Python problem",
+      "type": "debugpy",
+      "request": "launch",
+      "python": "${workspaceFolder}/.venv/Scripts/python.exe",
+      "linux": { "python": "${workspaceFolder}/.venv/bin/python" },
+      "osx": { "python": "${workspaceFolder}/.venv/bin/python" },
+      "program": "${fileDirname}/main.py",
+      "cwd": "${fileDirname}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
+}

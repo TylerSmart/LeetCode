@@ -1,0 +1,157 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "LeetCode: Build active Rust for debugging",
+      "type": "process",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-File",
+        "${workspaceFolder}/scripts/run.ps1",
+        "-FilePath",
+        "${file}",
+        "-Language",
+        "Rust",
+        "-BuildOnly"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": "$rustc"
+    },
+    {
+      "label": "LeetCode: Build active C for debugging",
+      "type": "process",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-File",
+        "${workspaceFolder}/scripts/run.ps1",
+        "-FilePath",
+        "${file}",
+        "-Language",
+        "C",
+        "-BuildOnly"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "LeetCode: Build active C++ for debugging",
+      "type": "process",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-File",
+        "${workspaceFolder}/scripts/run.ps1",
+        "-FilePath",
+        "${file}",
+        "-Language",
+        "C++",
+        "-BuildOnly"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "LeetCode: Build active Java for debugging",
+      "type": "process",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-File",
+        "${workspaceFolder}/scripts/run.ps1",
+        "-FilePath",
+        "${file}",
+        "-Language",
+        "Java",
+        "-BuildOnly"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "LeetCode: Build active C# for debugging",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${fileDirname}/Practice.csproj",
+        "--configuration",
+        "Debug",
+        "--output",
+        "${workspaceFolder}/.build/debug/CSharp",
+        "-p:DebugType=portable",
+        "-p:DebugSymbols=true"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": "$msCompile",
+      "presentation": { "reveal": "silent", "panel": "dedicated" }
+    },
+    {
+      "label": "LeetCode: Build active TypeScript for debugging",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/node_modules/typescript/bin/tsc",
+        "--project",
+        "${fileDirname}/tsconfig.json",
+        "--outDir",
+        "${workspaceFolder}/.build/debug/TypeScript",
+        "--sourceMap",
+        "--inlineSources"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": "$tsc",
+      "presentation": { "reveal": "silent", "panel": "dedicated" }
+    },
+    {
+      "label": "LeetCode: Run active language",
+      "type": "process",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-File",
+        "${workspaceFolder}/scripts/run.ps1",
+        "-FilePath",
+        "${file}"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    },
+    {
+      "label": "LeetCode: Run selected language",
+      "type": "process",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-File",
+        "${workspaceFolder}/scripts/run.ps1",
+        "-FilePath",
+        "${file}",
+        "-Language",
+        "${input:language}"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "language",
+      "type": "pickString",
+      "description": "Language for the active problem",
+      "options": ["C", "C#", "C++", "Java", "Python", "Rust", "TypeScript"]
+    }
+  ]
+}
