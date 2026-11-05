@@ -1,0 +1,9 @@
+[package]
+name = "leetcode-1385"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[[bin]]
+name = "practice"
+path = "main.rs"
