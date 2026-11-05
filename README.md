@@ -1,225 +1,167 @@
 # LeetCode Practice
 
-Problem sources live in `problems/<number>/`, with one subfolder per language.
-Shared scripts, VS Code configuration, dependencies, and build output stay at
-the repository root. Commands continue to use just the problem number.
+This repository is a local practice workspace for solving LeetCode problems in
+C, C#, C++, Java, Python 3, Rust, and TypeScript. Each problem has its own
+folder under `problems/`, with a solution and an example runner for each
+language. The runners check the examples from the problem description; they are
+not a replacement for LeetCode's hidden tests.
 
-## New Problem
+## Get Started
 
-1. Create a numeric folder under `problems/` (for example, `problems/1385`) and
-   paste the problem text into `DESCRIPTION.md` inside it.
-2. In Copilot Chat, run `/leetcode-setup 1385`. Alternatively, ask:
-   "Use the leetcode-setup skill to scaffold problem 1385."
-3. The skill prepares C, C#, C++, Java, Python 3, Rust, and TypeScript starters and
-   runners using the published examples. It does not solve the problem or
-   overwrite existing solutions. Check inferred signatures against LeetCode;
-   paste the official starter signature into chat when needed.
+The shared runner and VS Code tasks are designed for Windows and require
+PowerShell 7 (`pwsh`).
 
-The skill is stored in [.agents/skills/leetcode-setup/SKILL.md](.agents/skills/leetcode-setup/SKILL.md).
-If its slash command is missing, reload the VS Code window and ensure agent
-skills are enabled in Copilot settings. The skill requires Copilot agent access.
+1. Install [Git](https://git-scm.com/downloads), [Node.js LTS](https://nodejs.org/),
+   [PowerShell 7](https://learn.microsoft.com/powershell/scripting/install/installing-powershell-on-windows),
+   and [Visual Studio Code](https://code.visualstudio.com/).
+2. Clone this repository and open its folder in VS Code:
 
-## Code And Run
+   ```powershell
+   git clone https://github.com/TylerSmart/LeetCode.git
+   cd LeetCode
+   code .
+   ```
 
-Problem 1385 is ready. Edit only the solution file for your chosen language:
+3. Install the shared JavaScript dependencies from the repository root:
 
-| Language   | Solution                                                                     | Required toolchain           |
-| ---------- | ---------------------------------------------------------------------------- | ---------------------------- |
-| C          | [problems/1385/C/solution.c](problems/1385/C/solution.c)                     | MSVC, GCC, or Clang          |
-| C#         | [problems/1385/C#/Solution.cs](problems/1385/C%23/Solution.cs)               | .NET 10 SDK                  |
-| C++        | [problems/1385/C++/solution.hpp](problems/1385/C++/solution.hpp)             | MSVC, G++, or Clang++        |
-| Java       | [problems/1385/Java/Solution.java](problems/1385/Java/Solution.java)         | JDK (javac and java)         |
-| Python 3   | [problems/1385/Python/solution.py](problems/1385/Python/solution.py)         | Python 3 (py or python)      |
-| Rust       | [problems/1385/Rust/solution.rs](problems/1385/Rust/solution.rs)             | Rust stable and Cargo        |
-| TypeScript | [problems/1385/TypeScript/solution.ts](problems/1385/TypeScript/solution.ts) | Node.js and local TypeScript |
+   ```powershell
+   npm ci
+   ```
 
-Save your solution, then run from the repository root:
+4. Install the toolchains for the languages you plan to use. You do not need
+   every toolchain:
+
+   | Language | Toolchain |
+   | --- | --- |
+   | C | [Visual Studio C++ Build Tools](https://visualstudio.microsoft.com/downloads/), GCC, or Clang |
+   | C# | [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) |
+   | C++ | [Visual Studio C++ Build Tools](https://visualstudio.microsoft.com/downloads/), G++, or Clang++ |
+   | Java | A [JDK](https://adoptium.net/temurin/releases/) (`javac` and `java`) |
+   | Python 3 | [Python 3](https://www.python.org/downloads/) |
+   | Rust | [Rust](https://www.rust-lang.org/tools/install) with Cargo |
+   | TypeScript | Node.js; TypeScript is installed by `npm ci` |
+
+   The runner needs a C/C++ compiler to run those languages. VS Code's C and
+   C++ debug configurations use MSVC. Rust's debug configuration uses the
+   Visual Studio C++ tools. A normal run can use GCC or Clang instead.
+
+5. To use Python's VS Code debug configuration, create the repository-local
+   virtual environment and select it as the workspace interpreter:
+
+   ```powershell
+   python -m venv .venv
+   ```
+
+   In VS Code, run **Python: Select Interpreter** and choose `.venv`. The
+   Python run task can use an installed Python on `PATH` if `.venv` is absent;
+   Python debugging expects `.venv`.
+
+## VS Code
+
+Open the repository root as the VS Code workspace. The included `.vscode`
+configuration provides **LeetCode: Run active language**, **LeetCode: Run
+selected language**, and debug configurations for the languages with supported
+debuggers. Keep a source file in the problem's language folder active when
+running a task or starting a debug configuration.
+
+- Press **Ctrl+Shift+B** to run the active language, or use **Terminal > Run
+  Task > LeetCode: Run selected language**.
+- To debug, open a solution file, set a breakpoint, select the matching
+  **LeetCode: Debug active ... problem** configuration in **Run and Debug**
+  (**Ctrl+Shift+D**), then press **F5**.
+- Install the relevant VS Code extensions: [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools),
+  [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit),
+  [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack),
+  [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python),
+  [Python Debugger](https://marketplace.visualstudio.com/items?itemName=ms-python.debugpy),
+  [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer),
+  and [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb).
+  TypeScript debugging uses VS Code's built-in JavaScript debugger.
+
+Java's VS Code debug configuration expects a Windows JDK extracted to
+`.tools/jdk`. For run tasks, Java can also be found through `JAVA_HOME` or
+`PATH`. Rust debugging needs the Rust and C++ tools plus CodeLLDB. Debug
+configurations may have different requirements from run tasks; install only
+the toolchains and extensions for the languages you use.
+
+## Run Problems
+
+Start the interactive problem and language selector from the repository root:
 
 ```powershell
 npm start
 ```
 
-Search for a problem by number or title, choose a language, and the launcher
-compiles and runs its examples. Use arrow keys and Enter to select; Ctrl+C
-cancels. Only languages with complete starter/runner files are offered. Toolchain
-labels indicate requirements, not whether those tools are installed.
+Search for a problem by number or title, select a language, and follow the
+prompt to run, choose another selection, or exit. Only languages with the
+expected solution and runner files are offered. Numeric folders under
+`problems/` are discovered automatically.
 
-After a run, choose to rerun, select another problem/language, or exit. The
-session returns the last run's exit code. New numeric folders inside `problems/` appear
-automatically the next time you start the menu.
-
-Each interactive run prints a reusable command. To skip the menu, pass the
-problem number and language after npm's `--` separator:
+To run once without the menu, pass a problem number and language:
 
 ```powershell
-npm start -- 1385 "C#"
-npm start -- 1385 TypeScript
-npm start -- 1385 Python3
-npm start -- 1385 Rust
+npm start -- 1234 "C#"
+npm start -- 1234 TypeScript
+npm start -- 1234 Python3
 npm start -- --help
 ```
 
-Direct commands run once and return the runner's exit code without asking what
-to do next. Provide both arguments; language names are case-insensitive. Use
-`C`, `C#`, `C++`, `Java`, `Python` (or `Python3`), `Rust`, or `TypeScript`.
+Supported names are `C`, `C#`, `C++`, `Java`, `Python` (or `Python3`), `Rust`,
+and `TypeScript`. The language name is case-insensitive. The direct command
+returns the runner's exit code: zero means all examples passed; a nonzero code
+indicates a failed example or a build/toolchain error.
 
-The VS Code tasks still work: press **Ctrl+Shift+B** to run the active language's examples.
-From a problem's description, use **Terminal > Run Task > LeetCode: Run selected
-language**. Tasks use the active file to determine the problem folder; keep a
-problem file active rather than this README. These are run tasks, not debugger
-configurations or the Code Runner extension's Run Code command.
-
-Untouched starters intentionally fail every example. Passing examples produce
-exit code 0; mismatches or unimplemented methods produce a nonzero exit code.
-Add more cases to each language's main/Program file as needed. Example checks
-are not a substitute for LeetCode's hidden tests.
-
-For submissions, copy only the solution, not the runner. C submissions omit
-the local solution.h include; TypeScript submissions omit `export`. Rust
-submissions copy only the `impl Solution` block, not the local `pub struct
-Solution` declaration or runner. LeetCode
-provides the usual imports/includes for its starter interfaces.
-
-## Debug TypeScript
-
-1. Open and save a `.ts` file directly inside the problem's `TypeScript` folder.
-2. Set a breakpoint on an executable line in the solution.
-3. In Run and Debug (**Ctrl+Shift+D**), select **LeetCode: Debug active TypeScript
-   problem**, then press **F5**. Select this configuration once if VS Code was
-   previously launching the npm menu script.
-
-F5 rebuilds the active problem with source maps and debugs its example runner,
-not the interactive npm menu. Keep the TypeScript file active when starting;
-the build task uses its containing folder. Failed examples do not block launch.
-Other languages are not covered by this debug configuration.
-
-Use **F10** to step over, **F11** to step into, and **F5** to continue. Hover over
-variables or inspect them in Run and Debug while paused. **Ctrl+F5** runs this
-same configuration without debugging.
-
-## Debug Python
-
-1. Open a `.py` file directly inside the problem's `Python` folder and set a
-   breakpoint in `solution.py`.
-2. In Run and Debug (**Ctrl+Shift+D**), select **LeetCode: Debug active Python
-   problem**, then press **F5**.
-
-The configuration launches that folder's `main.py` with the folder as its
-working directory, so the example runner imports `solution.py` as usual. No
-build task is needed. Debugging uses the repository's `.venv` (see setup below),
-matching the run task. The Microsoft Python and Python Debugger extensions must
-be enabled. Choose this
-configuration explicitly because F5 remembers the last language configuration.
-Use **F10** to step over, **F11** to step into, and **F5** to continue.
-
-## Debug Rust
-
-1. Open a `.rs` file directly inside the problem's `Rust` folder and set a
-   breakpoint in `solution.rs`.
-2. Select **LeetCode: Debug active Rust problem** in Run and Debug, then press
-   **F5**.
-
-This builds the active problem with Cargo's unoptimized dev profile and full
-debug symbols, then launches its example runner with CodeLLDB. Rust 1385 is
-implemented and passes the three published examples. New Rust problems still
-start unsolved. Use F10/F11 to step and F5 to continue, just as with the other
-languages.
-
-Rust is installed per user through rustup using the Windows MSVC toolchain,
-which needs the existing Visual Studio C++ tools. The rust-analyzer and CodeLLDB
-extensions provide editing and debugging. Restart VS Code after the initial
-installation so extensions and the new Cargo PATH are picked up. The run script
-can also find Cargo under `CARGO_HOME` or the standard user `.cargo` directory.
-
-Each problem has a Cargo package, and the root workspace automatically includes
-`problems/*/Rust`. Cargo.lock is shared and tracked at the repository root; no third-party
-crates are required. Shared run/debug commands put build products under ignored
-`.build/`; Cargo's default `target/` directory is ignored too.
-
-## Debug C#
-
-1. Open and save a `.cs` file directly inside the problem's `C#` folder.
-2. Set a breakpoint on an executable line in the solution.
-3. Open Run and Debug (**Ctrl+Shift+D**) and select **LeetCode: Debug active C#
-   problem**, then press **F5**.
-
-This builds the active folder's `Practice.csproj` in Debug mode with portable
-symbols and launches its example runner. The Microsoft C# extension (also
-installed with C# Dev Kit) and the project's .NET SDK are required.
-
-F5 remembers the selected configuration; it does not automatically switch
-between C# and TypeScript when you change files. Select the matching language
-configuration and keep that problem's source file active before launching.
-Use the same stepping keys described above. No solution code needs changing.
-
-## Debug C, C++, And Java
-
-Open the solution file, set a breakpoint on an executable line, and select the
-matching Run and Debug configuration before pressing **F5**:
-
-- **LeetCode: Debug active C problem**
-- **LeetCode: Debug active C++ problem**
-- **LeetCode: Debug active Java problem**
-
-Each configuration builds the active problem before launching its example
-runner. C/C++ use the installed Visual Studio C++ toolchain, Microsoft C/C++
-extension, unoptimized native code, and PDB symbols. Java uses the JDK in
-`.tools/jdk`, `javac -g` symbols, Red Hat Java support, and Microsoft's Debugger
-for Java. Reload VS Code after first installing the Java extensions if needed.
-Keep a source file in the corresponding language folder active when launching.
-
-Problem 1385's C, C++, and Java solutions are implemented and use only the three
-published examples, matching the other language runners. Other
-new problems created by the setup skill still start unsolved.
-
-The JDK is installed locally in ignored `.tools/jdk`; it does not change PATH.
-On a fresh clone, extract a Windows x64 JDK there to use Java F5 debugging.
-Run-only tasks also accept `JAVA_HOME` or Java tools on PATH when no local JDK
-exists. Native F5 debugging uses MSVC even if GCC/Clang are on PATH; run-only
-tasks support either compiler family.
-
-## One-Time Setup
-
-Install the toolchains you want and make them available on PATH, then restart
-VS Code. PowerShell 7 (`pwsh`) is required for the shared runner. Native tasks
-can load the Visual Studio C++ developer environment automatically, without a
-Developer Command Prompt. Java requires a JDK, not just a JRE. Python must be
-a real Python 3 installation, not only the Windows Store launcher alias.
-
-Create a repository-local Python environment using a working interpreter:
+The shared PowerShell runner can also be called directly:
 
 ```powershell
-python -m venv .venv
+./scripts/run.ps1 -Problem 1234 -Language 'C#'
+./scripts/run.ps1 -Problem 1234 -Language TypeScript
 ```
 
-If the default Python installation is broken but a working uv runtime is
-registered with Python Install Manager, explicitly select that runtime instead:
+For TypeScript, check a problem's TypeScript project with:
 
 ```powershell
-py -V:Astral/CPython3.15.2 -m venv .venv
+npm run typecheck -- problems/1234/TypeScript/tsconfig.json
 ```
 
-Use the tag shown by `py list` for your installed version. Both Python debug
-launches and run tasks use `.venv`; no activation is required. Run tasks fall
-back to Python on PATH when `.venv` is absent, but debugging requires it.
-The environment is ignored by Git. Do not delete its base Python installation:
-a virtual environment still depends on that runtime's standard library.
-
-For the interactive menu and TypeScript, run from the repository root:
+Run the launcher's tests from the repository root with:
 
 ```powershell
-npm install
+node --test scripts/start.test.mjs
 ```
 
-Node.js is required for `npm start`, and PowerShell 7 runs the chosen language
-behind the scenes. No global TypeScript installation or testing framework is needed. Dependencies
-are shared across problems. Compilation output goes to ignored `.build/`;
-.NET uses its standard ignored `bin/` and `obj/` folders.
+## Add a Problem
 
-For scripting, the underlying runner is still available:
+1. Create `problems/<number>/DESCRIPTION.md` and add the problem title and
+   description, including its examples and constraints.
+2. In Copilot Chat, run `/leetcode-setup <number>` or ask it to use the
+   `leetcode-setup` skill to scaffold that problem. The skill creates
+   unsolved solution starters and example runners in the supported languages.
+   Review its inferred method signature against the official LeetCode starter.
+3. Implement your answer in the language's solution file, not its example
+   runner. Rerun the examples with `npm start` or a direct command.
 
-```powershell
-./scripts/run.ps1 -Problem 1385 -Language 'C#'
-./scripts/run.ps1 -Problem 1385 -Language TypeScript
-npm run typecheck -- problems/1385/TypeScript/tsconfig.json
+Problem folders use this layout:
+
+```text
+problems/<number>/
+  DESCRIPTION.md
+  C/solution.c
+  C#/Solution.cs
+  C++/solution.hpp
+  Java/Solution.java
+  Python/solution.py
+  Rust/solution.rs
+  TypeScript/solution.ts
 ```
+
+Each language folder also has a runner file (`main.c`, `Program.cs`,
+`main.cpp`, `Main.java`, `main.py`, `main.rs`, or `main.ts`) that exercises the
+solution using the description's examples. Leave that test harness intact
+unless you want to add more local cases. Copy only the solution code when
+submitting to LeetCode; the local runner and any practice-only scaffolding are
+not part of a submission.
+
+The shared launcher discovers numbered folders and complete language
+scaffolds automatically. There is no menu registration or per-problem runner
+script to maintain.
